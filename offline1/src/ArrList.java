@@ -1,6 +1,6 @@
 public class ArrList<E> implements list<E> {
     private final int chunkSize; //given chunkSize
-    private int curr; //current position in the list
+    private int curr; //current position in the list, zero-indexed
     private int length; //current length of list
     private E[] listArray;
 
@@ -101,7 +101,7 @@ public class ArrList<E> implements list<E> {
 
     @Override
     public void next() {
-        if (curr < length - 1)
+        if (curr < length)
             curr++;
     }
 
@@ -125,6 +125,8 @@ public class ArrList<E> implements list<E> {
 
     @Override
     public E getValue() {
+        if(curr < 0 || curr >= length)
+            System.out.println("Out of bounds");
         return listArray[curr];
     }
 

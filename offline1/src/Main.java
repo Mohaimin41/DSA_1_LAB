@@ -18,6 +18,7 @@ public class Main {
             listElements[i] = input.nextInt();
 
         ArrList<Object> testList = new ArrList<>(chunkSize, listElements);
+        printList(testList);
 
         do {
             functionNumber = input.nextInt();
@@ -54,7 +55,7 @@ public class Main {
                 //System.out.print(result);
             }
 
-            //printList(testList);
+            printList(testList);
             if (result != null) {
                 System.out.println(result);
             } else {
@@ -67,16 +68,30 @@ public class Main {
     }
 
     static void printList(ArrList test) {
-        System.out.print("<");
         int current = test.currPos();
-        System.out.print(current);
-//        for (test.moveToStart(); test.currPos() < test.length(); test.next()) {
-//            if (current == test.currPos())
+        System.out.print(current + " " + test.length() + " ");
+        System.out.print("<");
+
+        for (test.moveToStart(); test.currPos() < test.length(); test.next()) {
+//            for (test.moveToStart(); test.currPos() < 3; test.next()) {
+            if (current == test.currPos())
+                System.out.print("| ");
+            System.out.print(test.getValue());
+            if (test.currPos() < test.length() - 1)
+                System.out.print(" ");
+        }
+//        for (int i = 0; i < test.length(); i++) {
+//            if (current == i)
 //                System.out.print("| ");
+//            test.moveToPos(i);
 //            System.out.print(test.getValue());
-//            if (test.currPos() < test.length() - 1)
+//
+//            if (i < test.length() - 1)
 //                System.out.print(" ");
 //        }
         System.out.println(">");
+
+        if (current < test.length())
+            test.moveToPos(current);
     }
 }
