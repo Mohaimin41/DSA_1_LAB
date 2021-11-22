@@ -1,4 +1,4 @@
-public interface List<E> {
+public interface list<E> {
     void clear();
 
     void insert(E item);

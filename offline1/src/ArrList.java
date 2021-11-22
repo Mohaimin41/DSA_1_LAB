@@ -1,15 +1,15 @@
-public class ArrayList<E> implements List<E> {
+public class ArrList<E> implements list<E> {
     private final int chunkSize; //given chunkSize
     private int curr; //current position in the list
     private int length; //current length of list
     private E[] listArray;
 
-    ArrayList() {
+    ArrList() {
         curr = length = chunkSize = 0;
         listArray = (E[]) new Object[0];
     }
 
-    ArrayList(int chunkSize, E[] listElements) {
+    ArrList(int chunkSize, E[] listElements) {
         this.chunkSize = chunkSize;
         this.length = listElements.length;
         curr = 0;
@@ -50,7 +50,7 @@ public class ArrayList<E> implements List<E> {
 
         //copy from curr position to length - 1 from temp to listArray, here listArray index is +1 of temp index
         for (int i = curr; i < length; i++)
-            listArray[i+1] = temp[i];
+            listArray[i + 1] = temp[i];
 
         //increase length by 1
         length++;
