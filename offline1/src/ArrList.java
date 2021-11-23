@@ -76,8 +76,13 @@ public class ArrList<E> implements list<E> {
         for (int i = curr; i < length - 1; i++)
             listArray[i] = listArray[i + 1];
 
-        //decrease length
+        //check if current was in tail, then it should be decremented
+        if (curr == length - 1)
+            curr--;
+
+        //now decrease length
         length--;
+
 
         //return current element
         return temp;
