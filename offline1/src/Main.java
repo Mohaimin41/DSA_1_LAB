@@ -17,7 +17,8 @@ public class Main {
         for (int i = 0; i < length; i++)
             listElements[i] = input.nextInt();
 
-        ArrList<Object> testList = new ArrList<>(chunkSize, listElements);
+        //ArrList<Object> testList = new ArrList<>(chunkSize, listElements);
+        LinkedList<Object> testList = new LinkedList<>(chunkSize, listElements);
         printList(testList);
 
         do {
@@ -67,7 +68,7 @@ public class Main {
 
     }
 
-    static void printList(ArrList test) {
+    static void printList(list test) {
         int current = test.currPos();
         System.out.print(current + " " + test.length() + " ");
         System.out.print("<");
@@ -80,6 +81,7 @@ public class Main {
             if (test.currPos() < test.length() - 1)
                 System.out.print(" ");
         }
+
 //        for (int i = 0; i < test.length(); i++) {
 //            if (current == i)
 //                System.out.print("| ");
