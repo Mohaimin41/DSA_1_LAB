@@ -9,6 +9,10 @@ public class LinkedList<E> implements list<E> {
         listLength = 0;
     }
 
+    public LinkedList(int chunkSize) {
+        this();
+    }
+
     public LinkedList(int chunkSize, E[] listElements) {
         listLength = listElements.length;
         curr = tail = head = new link<E>(null);
@@ -66,6 +70,7 @@ public class LinkedList<E> implements list<E> {
     @Override
     public void append(E item) {
         tail.setNextLink(new link<E>(item, null));
+        tail = tail.getNextLink();
         listLength++;
     }
 

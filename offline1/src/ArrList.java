@@ -9,6 +9,10 @@ public class ArrList<E> implements list<E> {
         listArray = (E[]) new Object[0];
     }
 
+    public ArrList(int chunkSize) {
+        this.chunkSize = chunkSize;
+    }
+
     ArrList(int chunkSize, E[] listElements) {
         this.chunkSize = chunkSize;
         this.length = listElements.length;
