@@ -86,9 +86,14 @@ public class LinkedList<E> implements list<E> {
         //decrease length
         listLength--;
 
-        //make curr skip one link
-        curr.setNextLink(curr.getNextLink().getNextLink());
-
+        //if somehow curr == tail, nothing to return, but curr needs to go back one step
+        if (curr == tail) {
+            res = null;
+            prev();
+        } else {
+            //make curr skip one link
+            curr.setNextLink(curr.getNextLink().getNextLink());
+        }
         return res;
     }
 
@@ -144,18 +149,22 @@ public class LinkedList<E> implements list<E> {
 
     @Override
     public void moveToPos(int pos) {
-        //set a counter and curr at start
-        curr = head;
-        int runningPos = 0;
+        if (pos < 0 || pos >= listLength)
+            System.out.println("out of bound position");
+        else {
+            //set a counter and curr at start
+            curr = head;
+            int runningPos = 0;
 
-        //start traverse from head, stop at pos - 1
-        while (runningPos < pos) {
-            runningPos++;
-            curr = curr.getNextLink();
-        }
+            //start traverse from head, stop at pos - 1
+            while (runningPos < pos) {
+                runningPos++;
+                curr = curr.getNextLink();
+            }
 
 //        //pos is zero-indexed and while stopped at curr - 1, so advance curr once more
 //        curr =  curr.getNextLink();
+        }
     }
 
     @Override

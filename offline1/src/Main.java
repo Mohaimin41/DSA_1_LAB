@@ -17,8 +17,8 @@ public class Main {
         for (int i = 0; i < length; i++)
             listElements[i] = input.nextInt();
 
-        ArrList<Object> testList = new ArrList<>(chunkSize, listElements);
-//        LinkedList<Object> testList = new LinkedList<>(chunkSize, listElements);
+//        ArrList<Object> testList = new ArrList<>(chunkSize, listElements);
+        LinkedList<Object> testList = new LinkedList<>(chunkSize, listElements);
         printList(testList);
 
         do {
