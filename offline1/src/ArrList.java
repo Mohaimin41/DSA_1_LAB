@@ -87,7 +87,6 @@ public class ArrList<E> implements list<E> {
         //now decrease length
         length--;
 
-
         //return current element
         return temp;
     }

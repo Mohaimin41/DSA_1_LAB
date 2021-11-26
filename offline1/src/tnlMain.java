@@ -24,8 +24,8 @@ public class tnlMain {
         }
 
         //now create a list for tnlStop, setting current number of stops as chunkSize, append all stops to it
-//        ArrList<tnlStop> TNLstops = new ArrList<>(stops);
-        LinkedList<tnlStop> TNLstops = new LinkedList<>(stops);
+        ArrList<tnlStop> TNLstops = new ArrList<>(stops);
+//        LinkedList<tnlStop> TNLstops = new LinkedList<>(stops);
 
         for (int i = 0; i < stops; i++) {
             TNLstops.append(new tnlStop(hasBusOrTrainStop[0][i], hasBusOrTrainStop[1][i]));
@@ -57,9 +57,7 @@ public class tnlMain {
                 System.out.print(tnlStopsList.currPos());
             }
 
-//            System.out.print(tnlStopsList.getValue().toString());
-
-            if (tnlStopsList.currPos() < tnlStopsList.length() - 1) {
+           if (tnlStopsList.currPos() < tnlStopsList.length() - 1) {
                 System.out.print(",");
             }
         }
@@ -69,8 +67,6 @@ public class tnlMain {
             if (tnlStopsList.getValue().isTrainStop()) {
                 System.out.print(tnlStopsList.currPos());
             }
-
-//            System.out.print(tnlStopsList.getValue().toString());
 
             if (tnlStopsList.currPos() < tnlStopsList.length() - 1) {
                 System.out.print(",");

@@ -70,11 +70,10 @@ public class Main {
 
     static void printList(list test) {
         int current = test.currPos();
-        System.out.print(current + " " + test.length() + " ");
         System.out.print("<");
 
         for (test.moveToStart(); test.currPos() < test.length(); test.next()) {
-//            for (test.moveToStart(); test.currPos() < 3; test.next()) {
+
             if (current == test.currPos())
                 System.out.print("| ");
             System.out.print(test.getValue());
@@ -82,16 +81,7 @@ public class Main {
                 System.out.print(" ");
         }
 
-//        for (int i = 0; i < test.length(); i++) {
-//            if (current == i)
-//                System.out.print("| ");
-//            test.moveToPos(i);
-//            System.out.print(test.getValue());
-//
-//            if (i < test.length() - 1)
-//                System.out.print(" ");
-//        }
-        System.out.println(">");
+      System.out.println(">");
 
         if (current < test.length())
             test.moveToPos(current);

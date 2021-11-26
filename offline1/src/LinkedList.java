@@ -28,23 +28,11 @@ public class LinkedList<E> implements list<E> {
 
         //append each remaining elements to linkedList;
         for(int i = 1; i < listLength; i++) {
-//            //set current link to point at next element;
-//            curr.getNextLink().setNextLink(new link<E>(listElements[i], null));
-//
-//            //advance curr till last -1 elements, last - 1 is for tail
-//            if (i < listLength - 1)
-//                curr = curr.getNextLink();
-//            else
-//                tail = curr.getNextLink();
-
-            //or just advance tail
+         //then just advance tail
             tail.setNextLink(new link<E>(listElements[i], null));
             tail = tail.getNextLink();
         }
-//
-//        //set curr equal to head again
-//        curr = head;
-    }
+     }
 
     @Override
     public void clear() {
@@ -124,7 +112,8 @@ public class LinkedList<E> implements list<E> {
 
     @Override
     public void next() {
-        if(curr.getNextLink() != null)
+
+        if(curr != tail)
             curr = curr.getNextLink();
     }
 
@@ -161,9 +150,6 @@ public class LinkedList<E> implements list<E> {
                 runningPos++;
                 curr = curr.getNextLink();
             }
-
-//        //pos is zero-indexed and while stopped at curr - 1, so advance curr once more
-//        curr =  curr.getNextLink();
         }
     }
 
