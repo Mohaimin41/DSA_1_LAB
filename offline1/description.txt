@@ -1,0 +1,29 @@
+                        CSE 204
+                    Offline 1 on List
+                    
+                    File descriptions
+
+1. File: list.java
+Generic list interface setting common 13 functions for arrayList and Linked List
+
+2. File: ArrList.java
+ArrayList implementation, implements "list" interface using an array.
+
+3. File: link.java
+Class to describe links of link list, with generic variable to store item and
+link variable to store next link.
+ 
+4. File: LinkedList.java
+LinkedList implementation, implements "list" interface using a singly linked list
+with "link" objects.
+
+5. File: Main.java
+List implementations used in main, 13 functions usage is demonstrated.
+
+6. File: tnlStop.java
+class to describe each stop in TNL, with boolean variables storing if a rickshaw
+stop is also a bus stop and/or train stop.
+
+7. File: tnlMain.java
+list implementations used to store and print TNL stops objects. Input is taken
+as integer and tnlStop objects are created and stored in a list.
