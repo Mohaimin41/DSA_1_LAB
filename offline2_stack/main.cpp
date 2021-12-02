@@ -11,8 +11,8 @@ int main()
 {
     int len = 0, num = 0, task = 1;
     cin >> len;
-    // ArrStack<int> numbers(len);
-    LinkedStack<int> numbers(len);
+    ArrStack<int> numbers(len);
+    // LinkedStack<int> numbers(len);
 
     for (int i = 0; i < len; i++)
     {
@@ -20,6 +20,7 @@ int main()
         numbers.push(num);
     }
 
+    printStack(numbers);
     do
     {
         int param = -1, val = -1;

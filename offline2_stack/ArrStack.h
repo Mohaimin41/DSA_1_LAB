@@ -23,8 +23,12 @@ private:
     {
         if (size == 0)
             size = chunkSize;
+        if (size <= StackLength)
+            size = StackLength;
 
+        // cout << "size @extendSizeAndCopy: old: " << size;
         size *= 2;
+        // cout << "new: " << size << endl;
         T *tempStackArr = new T[size];
 
         for (int i = 0; i < StackLength; i++)
@@ -36,9 +40,10 @@ private:
     }
     void rightShift(T *arr, int shiftCellNum, int occupiedCellNum)
     {
-        if (shiftCellNum + occupiedCellNum > sizeof(arr) / sizeof(T *))
+        if (shiftCellNum + occupiedCellNum > /*sizeof(arr) / sizeof(T)*/ size)
         {
             cout << "Not enough space in array to shift elements right" << endl;
+            cout << "size needed: " << shiftCellNum + occupiedCellNum << ", size is: " << sizeof(arr) / sizeof(T *) << endl;
         }
         else
         {
@@ -59,7 +64,7 @@ public:
     {
         StackArr = newArr;
         size = sizeof(newArr) / sizeof(T *);
-        length = tos = 0;
+        StackLength = tos = 0;
         this.dir = dir;
     }
 
@@ -91,7 +96,7 @@ public:
 
                 tos += StackLength;
             }
-            StackArr[tos--];
+            StackArr[tos--] = item;
             StackLength++;
         }
     }
@@ -128,18 +133,18 @@ public:
             if (tos == 0)
             {
                 cout << "tos: " << tos << ", Stack is empty @topValue call" << endl;
-                return -1;
+                return (T)-1;
             }
-            return StackArr[tos-1];
+            return StackArr[tos - 1];
         }
         else
         {
             if (tos == size - 1)
             {
                 cout << "tos: " << tos << " Stack is empty @topValue call" << endl;
-                return -1;
+                return (T)-1;
             }
-            return StackArr[tos+1];
+            return StackArr[tos + 1];
         }
     }
     void setDirection(int dir = 1)
