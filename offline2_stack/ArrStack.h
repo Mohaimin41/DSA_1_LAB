@@ -149,14 +149,16 @@ public:
     }
     void setDirection(int dir = 1)
     {
-        if (dir != this->dir)
-        {
-            this->dir = dir;
-            for (int i = 0, j = size - 1; i <= j; i++, j--)
-                swap(StackArr[i], StackArr[j]);
+        // if (dir != this->dir)
+        // {
+        //     this->dir = dir;
+        //     for (int i = 0, j = size - 1; i <= j; i++, j--)
+        //         swap(StackArr[i], StackArr[j]);
 
-            tos = size - 1 - tos;
-        }
+        //     tos = size - 1 - tos;
+        // }
+        if (!StackLength)
+            this->dir = dir;
     }
 };
 
