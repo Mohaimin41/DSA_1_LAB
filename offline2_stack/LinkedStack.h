@@ -1,7 +1,8 @@
+// #pragma once
 #ifndef LINKEDSTACK_H
 #define LINKEDSTACK_H
 
-using namespace std;
+#include "Stack.h"
 
 template <typename T>
 class node
@@ -18,7 +19,7 @@ public:
 };
 
 template <typename T>
-class LinkedStack : public stack<T>
+class LinkedStack: public stack<T>
 {
 private:
     node<T> *tos;
@@ -52,8 +53,8 @@ public:
     {
         if (tos == nullptr)
         {
-            cout << "Empty stack @pop call" << endl;
-            return (T)-1;
+            std::cout << "Empty stack @pop call" << std::endl;
+            return -1;
         }
         StackLength--;
         T res = tos->element;
@@ -68,7 +69,7 @@ public:
     {
         if (tos == nullptr)
         {
-            cout << "Empty stack @topValue call" << endl;
+            // std::cout << "Empty stack @topValue call" << std::endl;
         }
         return tos->element;
     }

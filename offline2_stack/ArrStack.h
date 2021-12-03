@@ -5,8 +5,6 @@
 #include <iostream>
 #include "Stack.h"
 
-using namespace std;
-
 template <typename T>
 class ArrStack : public stack<T>
 {
@@ -28,7 +26,7 @@ private:
 
         // cout << "size @extendSizeAndCopy: old: " << size;
         size *= 2;
-        // cout << "new: " << size << endl;
+        // cout << "new: " << size <<std::endl;
         T *tempStackArr = new T[size];
 
         for (int i = 0; i < StackLength; i++)
@@ -42,8 +40,8 @@ private:
     {
         if (shiftCellNum + occupiedCellNum > /*sizeof(arr) / sizeof(T)*/ size)
         {
-            cout << "Not enough space in array to shift elements right" << endl;
-            cout << "size needed: " << shiftCellNum + occupiedCellNum << ", size is: " << sizeof(arr) / sizeof(T *) << endl;
+            std::cout << "Not enough space in array to shift elements right" <<std::endl;
+            std::cout << "size needed: " << shiftCellNum + occupiedCellNum << ", size is: " << sizeof(arr) / sizeof(T *) <<std::endl;
         }
         else
         {
@@ -115,22 +113,22 @@ public:
         {
             if (tos == 0)
             {
-                cout << "tos: " << tos << ", Stack is empty @pop call" << endl;
+                std::cout << "tos: " << tos << ", Stack is empty @pop call" <<std::endl;
                 return -1;
             }
             StackLength--;
-            // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" << endl;
+            // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" <<std::endl;
             return StackArr[--tos];
         }
         else
         {
             if (tos == size - 1)
             {
-                cout << "tos: " << tos << " Stack is empty" << endl;
+                std::cout << "tos: " << tos << " Stack is empty" <<std::endl;
                 return -1;
             }
             StackLength--;
-            // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" << endl;
+            // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" <<std::endl;
             return StackArr[++tos];
         }
     }
@@ -141,7 +139,7 @@ public:
         {
             if (tos == 0)
             {
-                cout << "tos: " << tos << ", Stack is empty @topValue call" << endl;
+                std::cout << "tos: " << tos << ", Stack is empty @topValue call" <<std::endl;
                 return (T)-1;
             }
             return StackArr[tos - 1];
@@ -150,7 +148,7 @@ public:
         {
             if (tos == size - 1)
             {
-                cout << "tos: " << tos << " Stack is empty @topValue call" << endl;
+                std::cout << "tos: " << tos << " Stack is empty @topValue call" <<std::endl;
                 return (T)-1;
             }
             return StackArr[tos + 1];
