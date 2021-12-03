@@ -9,18 +9,21 @@ class dish_event
 
 public:
     int friend_num, dish_DS_time, dish_size;
+    bool is_washed = false;
     dish_event() {}
     dish_event(int friend_num, int dish_DS_time, int dish_size)
     {
         this->friend_num = friend_num;
         this->dish_size = dish_size;
         this->dish_DS_time = dish_DS_time;
+        is_washed = false;
     }
     dish_event(dish_event *d)
     {
         this->friend_num = d->friend_num;
         this->dish_size = d->dish_size;
         this->dish_DS_time = d->dish_DS_time;
+        is_washed = false;
     }
 };
 
@@ -31,7 +34,7 @@ int main()
     int iter = 0;
 
     cin >> friend_total >> dish_total;
-    int all_dish_size[dish_total] ;
+    int all_dish_size[dish_total];
 
     for (int i = 0; i < dish_total; i++)
         cin >> all_dish_size[i];
@@ -43,67 +46,45 @@ int main()
     ArrStack<dish_event> dirty_stack(friend_total * dish_total);
     ArrStack<int> clean_stack(friend_total * dish_total);
     ArrStack<int> complete_meal(friend_total);
-
+    dish_event dirtyArr[friend_total * dish_total];
     while (1)
     {
         cin >> friend_num >> dish_DS_time >> dish_size;
-        iter++;
+        // iter++;
         if (!friend_num)
             break;
 
         if (dish_total == dish_size)
             complete_meal.push(friend_num);
 
-        dirty_stack.push(new dish_event(friend_num, dish_DS_time, dish_size));
+        dish_size = all_dish_size[dish_size - 1];
 
-        if (iter == 1)
-        {
-            clean_stack.push(dish_DS_time + all_dish_size[dish_size - 1] - 1);
-            dirty_stack.pop();
-        }
-        while (dirty_stack.length() > 0)
-        {
-            dish_event temp = dirty_stack.topValue();
-            if (temp.dish_DS_time + all_dish_size[dish_size - 1] - 1 == clean_stack.topValue())
-            {
-                clean_stack.push(clean_stack.topValue() + all_dish_size[dish_size - 1]);
-                dirty_stack.pop();
-            }
-            else if (temp.dish_DS_time == clean_stack.topValue())
-            {
-                clean_stack.push(temp.dish_DS_time + all_dish_size[dish_size - 1]);
-                dirty_stack.pop();
-            }
-            else if (temp.dish_DS_time < clean_stack.topValue())
-            {
-                break;
-            }
-            else
-            {
-                clean_stack.push(temp.dish_DS_time + all_dish_size[dish_size - 1] - 1);
-                dirty_stack.pop();
-            }
-        }
+        dirtyArr[iter++] = new dish_event(friend_num, dish_DS_time, dish_size);
     }
 
-    cout << "ds len: " << dirty_stack.length() << " cs len: " << clean_stack.length() << endl;
-    while (dirty_stack.length() > 0)
+    clean_stack.push(dirtyArr[0].dish_DS_time + dirtyArr[0].dish_size - 1);
+    dirtyArr[0].is_washed = true;
+
+    for (int i = 1; i < iter; i++)
     {
-        dish_event temp = dirty_stack.topValue();
-        if (clean_stack.topValue() >= temp.dish_DS_time)
+        if (clean_stack.topValue() < dirtyArr[i].dish_DS_time)
         {
-            clean_stack.push(clean_stack.topValue() + all_dish_size[temp.dish_size - 1]);
-            dirty_stack.pop();
-        }
-        else
-        {
-            clean_stack.push(clean_stack.topValue() + all_dish_size[temp.dish_size - 1] - 1);
-            dirty_stack.pop();
+            for (int j = i - 1; !dirtyArr[j].is_washed; j--)
+            {
+                clean_stack.push(clean_stack.topValue() + dirtyArr[j].dish_size);
+                dirtyArr[j].is_washed = true;
+            }
+            clean_stack.push(dirtyArr[i].dish_DS_time + dirtyArr[i].dish_size - 1);
+            dirtyArr[i].is_washed = true;
         }
     }
 
-    int total_time = clean_stack.topValue();
-    cout << total_time << endl;
+    for (int j = iter - 1; !dirtyArr[j].is_washed; j--)
+    {
+        clean_stack.push(clean_stack.topValue() + dirtyArr[j].dish_size);
+    }
+
+    cout << clean_stack.topValue() << endl;
 
     int len = clean_stack.length();
     int dish_times[len];
@@ -122,18 +103,16 @@ int main()
     if (complete_meal.length() == friend_total)
     {
         cout << "Y" << endl;
-        while (complete_meal.length() > 0)
-        {
-            cout << complete_meal.pop() << ",";
-        }
     }
     else
     {
         cout << "N" << endl;
-        while (complete_meal.length() > 0)
-        {
-            cout << complete_meal.pop() << ",";
-        }
+    }
+    for (int i = complete_meal.length(); i >= 1; i--)
+    {
+        cout << complete_meal.pop();
+        if (i > 1)
+            cout << ",";
     }
 
     return 0;
