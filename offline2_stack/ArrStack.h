@@ -60,11 +60,20 @@ public:
         StackArr = new T[size];
         StackLength = tos = 0; //tos = 0 means empty stack
     }
-    ArrStack(T *newArr, int dir)
+    ArrStack(T newArr[], int dir)
     {
         StackArr = newArr;
-        size = sizeof(newArr) / sizeof(T *);
-        StackLength = tos = 0;
+        size = sizeof(newArr) / sizeof(T);
+        StackLength = 0;
+        if (dir == 1)
+        {
+            tos = 0;
+        }
+        else
+        {
+            tos = size - 1;
+        }
+
         this.dir = dir;
     }
 
