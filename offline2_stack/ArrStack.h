@@ -114,7 +114,7 @@ public:
             if (tos == 0)
             {
                 std::cout << "tos: " << tos << ", Stack is empty @pop call" <<std::endl;
-                return -1;
+                return T();
             }
             StackLength--;
             // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" <<std::endl;
@@ -125,7 +125,7 @@ public:
             if (tos == size - 1)
             {
                 std::cout << "tos: " << tos << " Stack is empty" <<std::endl;
-                return -1;
+                return T();
             }
             StackLength--;
             // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" <<std::endl;
@@ -140,7 +140,7 @@ public:
             if (tos == 0)
             {
                 std::cout << "tos: " << tos << ", Stack is empty @topValue call" <<std::endl;
-                return (T)-1;
+                return T();
             }
             return StackArr[tos - 1];
         }
@@ -149,21 +149,13 @@ public:
             if (tos == size - 1)
             {
                 std::cout << "tos: " << tos << " Stack is empty @topValue call" <<std::endl;
-                return (T)-1;
+                return T();
             }
             return StackArr[tos + 1];
         }
     }
     void setDirection(int dir = 1)
     {
-        // if (dir != this->dir)
-        // {
-        //     this->dir = dir;
-        //     for (int i = 0, j = size - 1; i <= j; i++, j--)
-        //         swap(StackArr[i], StackArr[j]);
-
-        //     tos = size - 1 - tos;
-        // }
         if (!StackLength)
             this->dir = dir;
     }

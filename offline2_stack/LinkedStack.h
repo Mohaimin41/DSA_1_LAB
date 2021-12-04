@@ -54,7 +54,7 @@ public:
         if (tos == nullptr)
         {
             std::cout << "Empty stack @pop call" << std::endl;
-            return -1;
+            return T{};
         }
         StackLength--;
         T res = tos->element;

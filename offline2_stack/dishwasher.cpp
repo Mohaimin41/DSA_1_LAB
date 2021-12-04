@@ -8,30 +8,25 @@ class dish_event
 {
 
 public:
-    int friend_num, dish_DS_time, dish_size;
-    bool is_washed = false;
+    int dish_DS_time, dish_size;
     dish_event() {}
-    dish_event(int friend_num, int dish_DS_time, int dish_size)
+    dish_event( int dish_DS_time, int dish_size)
     {
-        this->friend_num = friend_num;
         this->dish_size = dish_size;
         this->dish_DS_time = dish_DS_time;
-        is_washed = false;
     }
     dish_event(dish_event *d)
     {
-        this->friend_num = d->friend_num;
         this->dish_size = d->dish_size;
         this->dish_DS_time = d->dish_DS_time;
-        is_washed = false;
-    }
+     }
 };
 
 int main()
 {
     int friend_total, dish_total;
     int friend_num, dish_DS_time, dish_size;
-    int iter = 0;
+    int iter = 1;
 
     cin >> friend_total >> dish_total;
     int all_dish_size[dish_total];
@@ -39,49 +34,64 @@ int main()
     for (int i = 0; i < dish_total; i++)
         cin >> all_dish_size[i];
 
-    // LinkedStack<dish_event> dirty_stack(friend_total * dish_total);
-    // LinkedStack<int> clean_stack(friend_total * dish_total);
-    // LinkedStack<int> complete_meal(friend_total);
+    LinkedStack<dish_event> dirty_stack(friend_total * dish_total);
+    LinkedStack<int> clean_stack(friend_total * dish_total);
+    LinkedStack<int> complete_meal(friend_total);
 
-    ArrStack<dish_event> dirty_stack(friend_total * dish_total);
-    ArrStack<int> clean_stack(friend_total * dish_total);
-    ArrStack<int> complete_meal(friend_total);
-    dish_event dirtyArr[friend_total * dish_total];
+    // ArrStack<dish_event> dirty_stack(friend_total * dish_total);
+    // ArrStack<int> clean_stack(friend_total * dish_total);
+    // ArrStack<int> complete_meal(friend_total);
+    
     while (1)
     {
         cin >> friend_num >> dish_DS_time >> dish_size;
         // iter++;
-        if (!friend_num)
-            break;
 
         if (dish_total == dish_size)
             complete_meal.push(friend_num);
 
         dish_size = all_dish_size[dish_size - 1];
+        if (!friend_num)
+            break;
 
-        dirtyArr[iter++] = new dish_event(friend_num, dish_DS_time, dish_size);
-    }
-
-    clean_stack.push(dirtyArr[0].dish_DS_time + dirtyArr[0].dish_size - 1);
-    dirtyArr[0].is_washed = true;
-
-    for (int i = 1; i < iter; i++)
-    {
-        if (clean_stack.topValue() < dirtyArr[i].dish_DS_time)
+        //first time straight to clean with wash time 
+        if (iter++ == 1)
         {
-            for (int j = i - 1; !dirtyArr[j].is_washed; j--)
-            {
-                clean_stack.push(clean_stack.topValue() + dirtyArr[j].dish_size);
-                dirtyArr[j].is_washed = true;
+            clean_stack.push(dish_DS_time + dish_size - 1);
+        }
+        else
+        {   //first we check if any dish left to work in dirty stack
+            while (dirty_stack.length() > 0)
+            {   
+                //this means there is a dish being washed, so we cannot pop any dish from it to push in clean stack
+                if (clean_stack.topValue() >= dish_DS_time)
+                    break;
+                //this means there is a chance to wash dishes now, as the clean stack last had a dish earlier than current dish time
+                else
+                {
+                    //this means this dirty dish at dirty stack top is being worked in future, so dish wash starts from current clean_stack top time
+                    if (clean_stack.topValue() + 1 > dirty_stack.topValue().dish_DS_time)
+                        clean_stack.push(clean_stack.topValue() + dirty_stack.topValue().dish_size);
+                    //otherwise dish wash starts in the time the dirty dish was pushed to dirty stack, immediately put to wash
+                    else
+                        clean_stack.push(dirty_stack.topValue().dish_DS_time + dirty_stack.topValue().dish_size - 1);
+                    //the top dirty dish is washed, popped from dirty stack
+                    dirty_stack.pop();
+                }
             }
-            clean_stack.push(dirtyArr[i].dish_DS_time + dirtyArr[i].dish_size - 1);
-            dirtyArr[i].is_washed = true;
+            //after clearing allowable old dishes we push current dish to dirty stack
+            dirty_stack.push(new dish_event(dish_DS_time, dish_size));
         }
     }
-
-    for (int j = iter - 1; !dirtyArr[j].is_washed; j--)
+    while (dirty_stack.length() > 0)
+    //now we clean up the remaining dishes in stack, same as in input loop
     {
-        clean_stack.push(clean_stack.topValue() + dirtyArr[j].dish_size);
+        if (clean_stack.topValue() + 1 > dirty_stack.topValue().dish_DS_time)
+            clean_stack.push(clean_stack.topValue() + dirty_stack.topValue().dish_size);
+        else
+            clean_stack.push(dirty_stack.topValue().dish_DS_time + dirty_stack.topValue().dish_size - 1);
+
+        dirty_stack.pop();
     }
 
     cout << clean_stack.topValue() << endl;
@@ -108,6 +118,7 @@ int main()
     {
         cout << "N" << endl;
     }
+    
     for (int i = complete_meal.length(); i >= 1; i--)
     {
         cout << complete_meal.pop();
