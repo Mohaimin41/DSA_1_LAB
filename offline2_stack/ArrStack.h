@@ -40,8 +40,8 @@ private:
     {
         if (shiftCellNum + occupiedCellNum > /*sizeof(arr) / sizeof(T)*/ size)
         {
-            std::cout << "Not enough space in array to shift elements right" <<std::endl;
-            std::cout << "size needed: " << shiftCellNum + occupiedCellNum << ", size is: " << sizeof(arr) / sizeof(T *) <<std::endl;
+            std::cout << "Not enough space in array to shift elements right" << std::endl;
+            std::cout << "size needed: " << shiftCellNum + occupiedCellNum << ", size is: " << sizeof(arr) / sizeof(T *) << std::endl;
         }
         else
         {
@@ -113,7 +113,7 @@ public:
         {
             if (tos == 0)
             {
-                std::cout << "tos: " << tos << ", Stack is empty @pop call" <<std::endl;
+                std::cout << "tos: " << tos << ", Stack is empty @pop call" << std::endl;
                 return T();
             }
             StackLength--;
@@ -124,11 +124,11 @@ public:
         {
             if (tos == size - 1)
             {
-                std::cout << "tos: " << tos << " Stack is empty" <<std::endl;
+                std::cout << "tos: " << tos << " Stack is empty" << std::endl;
                 return T();
             }
             StackLength--;
-            // cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" <<std::endl;
+            // std::cout << "tos: " << tos << " len: " << StackLength << " @ok pop call" << std::endl;
             return StackArr[++tos];
         }
     }
@@ -139,7 +139,7 @@ public:
         {
             if (tos == 0)
             {
-                std::cout << "tos: " << tos << ", Stack is empty @topValue call" <<std::endl;
+                std::cout << "tos: " << tos << ", Stack is empty @topValue call" << std::endl;
                 return T();
             }
             return StackArr[tos - 1];
@@ -148,7 +148,7 @@ public:
         {
             if (tos == size - 1)
             {
-                std::cout << "tos: " << tos << " Stack is empty @topValue call" <<std::endl;
+                std::cout << "tos: " << tos << " Stack is empty @topValue call" << std::endl;
                 return T();
             }
             return StackArr[tos + 1];
@@ -157,7 +157,13 @@ public:
     void setDirection(int dir = 1)
     {
         if (!StackLength)
+        {
             this->dir = dir;
+            if (dir == 1)
+                tos = 0;
+            else
+                tos = size - 1;
+        }
     }
 };
 
