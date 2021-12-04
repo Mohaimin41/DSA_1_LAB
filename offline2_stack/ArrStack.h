@@ -58,10 +58,10 @@ public:
         StackArr = new T[size];
         StackLength = tos = 0; //tos = 0 means empty stack
     }
-    ArrStack(T newArr[], int dir)
+    ArrStack(T newArr[], int dir, int size)
     {
         StackArr = newArr;
-        size = sizeof(newArr) / sizeof(T);
+        this->size = size;
         StackLength = 0;
         if (dir == 1)
         {
@@ -72,7 +72,7 @@ public:
             tos = size - 1;
         }
 
-        this.dir = dir;
+        this->dir = dir;
     }
 
     ~ArrStack() { delete[] StackArr; }
