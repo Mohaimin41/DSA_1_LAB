@@ -28,10 +28,8 @@ namespace dsa1
         int m_length;
 
     public:
-        LinkedQueue(int sz = 50) : m_front(new node(nullptr))
+        LinkedQueue(int sz = 50) : m_front(new node(nullptr)), m_rear(m_front), m_length(0)
         {
-            m_rear = m_front;
-            m_length = 0;
         }
 
         ~LinkedQueue()

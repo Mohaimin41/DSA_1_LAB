@@ -26,7 +26,7 @@ namespace dsa1
     std::ostream &operator<<(std::ostream &os, Queue<E> &my_queue)
     {
         int len = my_queue.length();
-        E temp[] = new E[len];
+        E *temp = new E[len];
 
         os << "<";
         for (int i = 0; i < len; i++)
@@ -42,6 +42,8 @@ namespace dsa1
 
         for (int i = 0; i < len; i++)
             my_queue.enqueue(temp[i]);
+
+        delete [] temp;
 
         return os;
     }
