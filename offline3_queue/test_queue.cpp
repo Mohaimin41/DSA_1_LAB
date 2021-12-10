@@ -5,7 +5,7 @@
 #include "ArrQueue.h"
 #include "LinkedQueue.h"
 
-TEMPLATE_PRODUCT_TEST_CASE("Basic test", "[LinkedQueue]", (dsa1::LinkedQueue), (int))
+TEMPLATE_PRODUCT_TEST_CASE("Basic test", "[LinkedQueue]", (dsa1::ArrQueue, dsa1::LinkedQueue), (int))
 {
     TestType queue;
 
@@ -53,7 +53,7 @@ TEMPLATE_PRODUCT_TEST_CASE("Basic test", "[LinkedQueue]", (dsa1::LinkedQueue), (
     }
 }
 
-TEMPLATE_PRODUCT_TEST_CASE("Bulk test", "[LinkedQueue]", (dsa1::LinkedQueue), (int))
+TEMPLATE_PRODUCT_TEST_CASE("Bulk test", "[LinkedQueue]", (dsa1::ArrQueue, dsa1::LinkedQueue), (int))
 {
     TestType queue;
 
@@ -89,6 +89,7 @@ TEMPLATE_PRODUCT_TEST_CASE("Bulk test", "[LinkedQueue]", (dsa1::LinkedQueue), (i
         {
             queue.enqueue(i);
         }
+        REQUIRE(queue.length() == 201);
         for (int i = 200; i >= 0; i--)
         {
             CHECK(queue.leaveQueue() == i);

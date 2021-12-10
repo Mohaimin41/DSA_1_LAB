@@ -125,10 +125,11 @@ namespace dsa1
             E res = m_Arr[m_rear];
 
             //check where is rear and update
-            if (m_front != m_rear)
-            {
-                m_rear = (m_rear + m_chunkSize - 1) % m_chunkSize;
-            }
+            // if (m_front != m_rear)
+            // {
+            //     m_rear = (m_rear + m_chunkSize - 1) % m_chunkSize;
+            // }
+            m_rear = (m_rear + m_chunkSize - 1) % m_chunkSize;
             
             return res;
         }
