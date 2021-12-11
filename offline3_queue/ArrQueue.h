@@ -38,8 +38,7 @@ namespace dsa1
             E *temp = new E[m_chunkSize];
             int len = length();
 
-            //copy elements
-            //BIG MISTAKES HERE
+            //copy elements 
             for (int i = 0, k = m_front; i < len; i++, (k++) % prev_chunkSize)
             {
                 temp[i] = m_Arr[k];
@@ -90,14 +89,14 @@ namespace dsa1
             return res;
         }
 
-        inline int length() override
+        int length() override
         {
             //first we unroll circular queue by adding chunkSize to rear, subtract and get length
             //modulus it with chunkSize again as unrolled circular queue may have drifted
             return ((m_rear + m_chunkSize) - m_front + 1) % m_chunkSize;
         }
 
-        inline const E &frontValue() const override
+        const E &frontValue() const override
         {
             if (!(((m_rear + m_chunkSize) - m_front + 1) % m_chunkSize))
             {
@@ -106,7 +105,7 @@ namespace dsa1
             return m_Arr[m_front];
         }
 
-        inline const E &rearValue() const override
+        const E &rearValue() const override
         {
             if (!(((m_rear + m_chunkSize) - m_front + 1) % m_chunkSize))
             {
@@ -130,7 +129,7 @@ namespace dsa1
             //     m_rear = (m_rear + m_chunkSize - 1) % m_chunkSize;
             // }
             m_rear = (m_rear + m_chunkSize - 1) % m_chunkSize;
-            
+
             return res;
         }
     };

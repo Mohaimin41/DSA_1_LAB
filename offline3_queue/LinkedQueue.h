@@ -85,9 +85,9 @@ namespace dsa1
             return res;
         }
 
-        inline int length() override { return m_length; }
+        int length() override { return m_length; }
 
-        inline const E &frontValue() const override
+        const E &frontValue() const override
         {
             if (!m_length)
             {
@@ -96,7 +96,7 @@ namespace dsa1
             return m_front->next->item;
         }
 
-        inline const E &rearValue() const override
+        const E &rearValue() const override
         {
             if (!m_length)
             {
