@@ -38,6 +38,7 @@ namespace dsa1
             clear();
             //delete front
             delete m_front;
+            delete m_rear;
         }
 
         void clear() override
