@@ -37,37 +37,27 @@ int main()
         int in, service;
         std::cin >> in >> service;
         customer temp(in, service);
-        // if (!i)
-        // {
-        //     //choose queue1 for first customer
-        //     //queue1_time = temp.in_time + temp.service_time;
-        //     que1.enqueue(temp);
-        // }
-        // else
-        // {
 
-        while (que1.length() && que2.length())
+        //process queue1
+        while (que1.length() && temp.in_time >= queue1_time + que1.frontValue().service_time)
         {
-
-            //process queue1
-            if (temp.in_time >= queue1_time + que1.frontValue().service_time)
+            if (queue1_time <= que1.frontValue().in_time)
             {
-                queue1_time += que1.frontValue().service_time;
-                que1.dequeue();
+                queue1_time = que1.frontValue().in_time;
             }
-
-            //process queue 2
-            if (temp.in_time >= queue2_time + que2.frontValue().service_time)
-            {
-                queue2_time += que2.frontValue().service_time;
-                que2.dequeue();
-            }
-
-            if ((temp.in_time < queue1_time + que1.frontValue().service_time) && (temp.in_time < queue2_time + que2.frontValue().service_time))
-            {
-                break;
-            }
+            queue1_time += que1.dequeue().service_time;
         }
+
+        //process queue 2
+        while (que2.length() && temp.in_time >= queue2_time + que2.frontValue().service_time)
+        {
+            if (queue2_time <= que2.frontValue().in_time)
+            {
+                queue2_time = que2.frontValue().in_time;
+            }
+            queue2_time += que2.dequeue().service_time;
+        }
+
         //enqueue temp in shortest queue
         if (que1.length() <= que2.length())
         {
@@ -90,25 +80,29 @@ int main()
 
         //equalize
         equalize_queues(que1, que2);
-        // }
+        std::cout << "TIMES: " << queue1_time << " " << queue2_time << std::endl;
     }
-
-    // std::cout << "TIMES: " << queue1_time << " " << queue2_time << std::endl;
 
     while ((que1.length() || que2.length()))
     {
         if (que1.length())
         {
-            queue1_time += que1.frontValue().service_time;
-            que1.dequeue();
+            if (queue1_time <= que1.frontValue().in_time)
+            {
+                queue1_time = que1.frontValue().in_time;
+            }
+            queue1_time += que1.dequeue().service_time;
         }
         if (que2.length())
         {
-            queue2_time += que2.frontValue().service_time;
-            que2.dequeue();
+            if (queue2_time <= que2.frontValue().in_time)
+            {
+                queue2_time = que2.frontValue().in_time;
+            }
+            queue2_time += que2.dequeue().service_time;
         }
         equalize_queues(que1, que2);
-        // std::cout << "TIMES: " << queue1_time << " " << queue2_time << std::endl;
+        std::cout << "TIMES: " << queue1_time << " " << queue2_time << std::endl;
     }
 
     std::cout << "Booth 1 finishes at t=" << queue1_time << std::endl;
