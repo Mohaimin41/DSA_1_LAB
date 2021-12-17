@@ -13,7 +13,7 @@ namespace dsa1
 
     public:
         binNode() : m_left(nullptr), m_right(nullptr) {}
-        binNode(Key &k, E element, binNode *left = nullptr, binNode *right = nullptr) : m_k(k), m_element(element), m_left(left), m_right(right) {}
+        binNode(Key k, E element, binNode *left = nullptr, binNode *right = nullptr) : m_k(k), m_element(element), m_left(left), m_right(right) {}
         ~binNode()
         {
             delete m_right;
@@ -23,13 +23,13 @@ namespace dsa1
     private:
     public:
         E &element() { return m_element; }
-        setElement(const E &element) { m_element = element; }
+        void setElement(const E &element) { m_element = element; }
         Key &getKey() { return m_k; }
-        setKey(const Key &k) { m_k = k; }
+        void setKey(const Key &k) { m_k = k; }
         binNode *leftChild() { return m_left; }
-        setLeftChild(binNode *node) { m_left = node; }
+        void setLeftChild(binNode *node) { m_left = node; }
         binNode *rightChild() { return m_right; }
-        setRightChild(binNode *node) { m_right = node; }
+        void setRightChild(binNode *node) { m_right = node; }
         bool isLeaf() { return (m_left == nullptr) && (m_right == nullptr); }
     };
 
