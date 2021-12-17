@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #include "binNode.h"
 
@@ -32,31 +33,72 @@ namespace dsa1
         bool p_contains(binNode<Key, E> *, const Key &) const;
         void p_print(binNode<Key, E> *) const;
 
+        //traversal functions
+        void p_preOrder(binNode<Key, E> *) const;
+        void p_postOrder(binNode<Key, E> *) const;
+        void p_inOrder(binNode<Key, E> *) const;
+
     public:
         void insert(const Key &k, const E &element)
         {
             m_root = p_insert(m_root, k, element);
             m_nodeCount++;
+            print();
         }
+
         void remove(const Key &k)
         {
             if (p_contains(m_root, k))
             {
                 m_root = p_remove(m_root, k);
                 m_nodeCount--;
+                print();
             }
             else
             {
                 throw "Invalid Operation";
             }
         }
-        bool find(const Key &k)
+
+        const char *find(const Key &k)
         {
-            return p_contains(m_root, k);
+            if (p_contains(m_root, k))
+            {
+                return "True";
+            }
+            else
+            {
+                return "False";
+            }
         }
+
         void print() const
         {
             p_print(m_root);
+            std::cout << std::endl;
+        }
+
+        void traverse(std::string order)
+        {
+            // order = std::to_string(order);
+            if (!order.compare("In"))
+            {
+                p_inOrder(m_root);
+            }
+            else if (!order.compare("Pre"))
+            {
+                p_preOrder(m_root);
+            }
+            else if (!order.compare("Post"))
+            {
+                p_postOrder(m_root);
+            }
+            else
+            {
+                std::cout << "Incorrect order specified" << std::endl;
+            }
+
+            std::cout << std::endl;
         }
     };
 
@@ -234,6 +276,42 @@ namespace dsa1
             }
             std::cout << ")";
         }
+    }
+
+    template <typename Key, typename E>
+    void BST<Key, E>::p_preOrder(binNode<Key, E> *node) const
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        std::cout << node->getKey() << ' ';
+        p_preOrder(node->leftChild());
+        p_preOrder(node->rightChild());
+    }
+
+    template <typename Key, typename E>
+    void BST<Key, E>::p_postOrder(binNode<Key, E> *node) const
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        p_postOrder(node->leftChild());
+        p_postOrder(node->rightChild());
+        std::cout << node->getKey() << ' ';
+    }
+
+    template <typename Key, typename E>
+    void BST<Key, E>::p_inOrder(binNode<Key, E> *node) const
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        p_inOrder(node->leftChild());
+        std::cout << node->getKey() << ' ';
+        p_inOrder(node->rightChild());
     }
 
 } // namespace dsa1
