@@ -27,10 +27,11 @@ int main()
         else if (operation == 'D')
         {
             input_stream >> num_operand;
-            // std::cout << num_operand << ' ';
             try
             {
                 my_bst.remove(num_operand);
+//                std::cout << "REMOVED: " << num_operand << std::endl;
+
             }
             catch (const char *error)
             {
