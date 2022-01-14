@@ -4,70 +4,75 @@
 class Heap
 {
 private:
-    int capacity; //size of heap array, always +1 of actual capacity for 1-indexed tree
-    int curr_pos; //currently where last value in array is, insert at curr_pos + 1
-    int *heapArr;
+    int m_capacity; //size of heap array, always +1 of actual m_capacity for 1-indexed tree
+    int m_curr_pos; //currently where last value in array is, insert at m_curr_pos + 1
+    int *m_heapArr;
 
 public:
-    Heap() : capacity(1), curr_pos(0), heapArr(new int[capacity]) {}
+    Heap() : m_capacity(8), m_curr_pos(0), m_heapArr(new int[m_capacity]) {}
 
-    Heap(int sz) : capacity(sz + 1), curr_pos(0), heapArr(new int[capacity]) {}
+    Heap(int sz) : m_capacity(sz + 1), m_curr_pos(0), m_heapArr(new int[m_capacity]) {}
 
-    Heap(std::vector<int> &given_V) : capacity(given_V.size() + 1), curr_pos(0), heapArr(new int[capacity])
+    Heap(std::vector<int> &given_V) : m_capacity(given_V.size() + 1), m_curr_pos(0), m_heapArr(new int[m_capacity])
     {
-        while (!given_V.empty())
-        {
-            insert(given_V.back());
-            given_V.pop_back();
-        }
+        int sz = given_V.size();
+
+        for (int i = 0; i < sz; i++)
+            insert(given_V[i]);
     }
 
-    ~Heap() { delete[] heapArr; }
+    ~Heap() { delete[] m_heapArr; }
 
     void insert(int num_to_insert)
     {
-        if (curr_pos == capacity)
+        if (m_curr_pos == m_capacity)
         {
             std::cout << "ERROR: Heap full, insert not possible\n";
         }
         else
         {
             //first we put it in first empty slot in array
-            heapArr[++curr_pos] = num_to_insert;
+            m_heapArr[++m_curr_pos] = num_to_insert;
             //then we sift it down
-            siftDown_inArray(curr_pos);
+            siftDown_inArray(m_curr_pos);
         }
     }
 
-    int size() const { return curr_pos; }
+    int size() const { return m_curr_pos; }
 
-    int getMax() const { return heapArr[1]; }
+    int getMax() const { return m_heapArr[1]; }
 
     void deleteKey()
     {
-        if (!curr_pos)
+        if (!m_curr_pos)
         {
             std::cout << "ERROR: Heap empty, deletion of key not possible\n";
         }
         else
         {
-            heapArr[1] = heapArr[curr_pos--];
+            m_heapArr[1] = m_heapArr[m_curr_pos--];
             siftUp_inArray(1);
         }
     }
 
     void print()
     {
-        for (int i = 0; i < curr_pos; i++)
+        std::cout << "\nArray index:\t";
+        for (int i = 0; i < m_curr_pos; i++)
         {
-            std::cout << heapArr[i+1] << " ";
+            std::cout << i + 1<< "\t";
+        }
+        std::cout << "\nArray content:\t";
+        for (int i = 0; i < m_curr_pos; i++)
+        {
+            std::cout << m_heapArr[i + 1] << " \t";
         }
     }
 
 private:
-    int leftChild(int pos) { return pos << 1; }
+    int left(int pos) { return pos << 1; }
 
-    int rightChild(int pos) { return (pos << 1) | 1; }
+    int right(int pos) { return (pos << 1) | 1; }
 
     int parent(int pos)
     {
@@ -84,9 +89,9 @@ private:
         /*while(parent) && arr[parent] < arr[pos] 
                 swap parent & current
                 pos = parent(pos)*/
-        while (parent(pos) && heapArr[parent(pos)] < heapArr[pos])
+        while (parent(pos) && m_heapArr[parent(pos)] < m_heapArr[pos])
         {
-            std::swap(heapArr[parent(pos)], heapArr[pos]);
+            std::swap(m_heapArr[parent(pos)], m_heapArr[pos]);
             pos /= 2; //
         }
     }
@@ -96,15 +101,15 @@ private:
         //first we compare pos with its children, if they be larger than pos
         //we swap, then we do same again, till reaching half of array
 
-        while (pos < curr_pos / 2) //till curr_pos / 2 is penultimate level, next all leaves
+        while (pos < m_curr_pos / 2) //till m_curr_pos / 2 is penultimate level, next all leaves
         {
-            int larger_child = heapArr[pos << 1] >= heapArr[(pos << 1) | 1]
-                                   ? pos << 1
-                                   : (pos << 1) | 1;
+            int larger_child = m_heapArr[left(pos)] >= m_heapArr[right(pos)]
+                                   ? left(pos)
+                                   : right(pos);
 
-            if (heapArr[pos] < heapArr[larger_child])
+            if (m_heapArr[pos] < m_heapArr[larger_child])
             {
-                std::swap(heapArr[pos], heapArr[larger_child]);
+                std::swap(m_heapArr[pos], m_heapArr[larger_child]);
                 pos = larger_child;
             }
             else
@@ -115,4 +120,15 @@ private:
     }
 };
 
-void heapsort(std::vector<int> &given_V) {}
+void heapsort(std::vector<int> &given_V)
+{
+    Heap sortHeap(given_V);
+
+    int sz = given_V.size();
+
+    for (int i = 0; i < sz; i++)
+    {
+        given_V[i] = sortHeap.getMax();
+        sortHeap.deleteKey();
+    }
+}
