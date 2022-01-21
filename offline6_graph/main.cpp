@@ -13,15 +13,15 @@ void print_unreachables(std::vector<int> unreachable_list);
 
 int main()
 {
-    std::ifstream inputFileStream ("inputF.txt");
-    std::ofstream outputFileStream("output1.txt", std::ios::out);
+    std::ifstream inputFileStream("input.txt");
+    std::ofstream outputFileStream("output.txt", std::ios::out);
 
     // Backup streambuffers of cin cout
-    std::streambuf* stream_buffer_cout = std::cout.rdbuf();
-    std::streambuf* stream_buffer_cin = std::cin.rdbuf();
+    std::streambuf *stream_buffer_cout = std::cout.rdbuf();
+    std::streambuf *stream_buffer_cin = std::cin.rdbuf();
 
-    std::streambuf* stream_buffer_file_in = inputFileStream.rdbuf();
-    std::streambuf* stream_buffer_file_out = outputFileStream.rdbuf();
+    std::streambuf *stream_buffer_file_in = inputFileStream.rdbuf();
+    std::streambuf *stream_buffer_file_out = outputFileStream.rdbuf();
 
     //redirection part
     std::cin.rdbuf(stream_buffer_file_in);
@@ -59,12 +59,6 @@ int main()
 
         std::vector<node> board = build_graph(jumps, square_num, dice_sides);
 
-        // for (auto n: jumps)
-        //     std::cout << n << " ";
-        // std::cout << "\n";
-
-        // std::cout << "board size: " << board.size() << "\n";
-
         bfs(board, 1);
 
         std::cout << dice_roll(board, square_num, dice_sides, jumps) << "\n";
@@ -74,15 +68,6 @@ int main()
         print_shortest_path(solve_path);
 
         print_unreachables(unreachable_vertices(board));
-
-        // int cnt = -1;
-        // for (auto vertex: board)
-        // {
-        //     std::cout << ++cnt <<" col: " << vertex.color << " " << vertex.dist_from_src << ", parent: " << vertex.parent << " adj: ";
-        //     for (auto adj: vertex.adj_nodes)
-        //         std:: cout << adj << " ";
-        //     std::cout << "\n";
-        // }
     }
 
     std::cin.rdbuf(stream_buffer_cin);

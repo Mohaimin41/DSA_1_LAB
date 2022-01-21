@@ -60,8 +60,7 @@ int dice_roll(std::vector<node> nodes_list, int dest_node, int dice_sides, int *
 
     while (curr > 1)
     {
-        if (curr - nodes_list[curr].parent <= dice_sides 
-        && jumps[nodes_list[curr].parent] != curr )
+        if (curr - nodes_list[curr].parent <= dice_sides && jumps[nodes_list[curr].parent] != curr)
         {
             res++;
         }
