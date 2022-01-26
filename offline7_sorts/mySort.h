@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 #include <limits>
 
 const int inf = std::numeric_limits<int>::max();
@@ -49,7 +48,7 @@ void quicksort(int A[], int start_idx, int end_idx)
 
 int RandPartition(int A[], int start_idx, int end_idx)
 {
-    int pivot_idx = start_idx + rand() % (end_idx - start_idx);
+    int pivot_idx = start_idx + std::rand() % (end_idx - start_idx);
     std::swap(A[end_idx], A[pivot_idx]);
 
     int pivot = A[end_idx];
