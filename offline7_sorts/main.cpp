@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
-#include <ctime>
 #include <algorithm>
+#include <iomanip>
 
 #include "mySort.h"
 
@@ -24,9 +24,13 @@ double stlSort_test(int testArr_size)
     {
         int *testArray = generator(testArr_size);
 
+        // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
         std::sort(testArray, testArray + testArr_size);
-        total += double((std::chrono::high_resolution_clock::now() - start).count() / 1e6);
+        total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::high_resolution_clock::now() - start)
+                            .count() /
+                        1000000.0);
     }
 
     return total / 20.0;
@@ -40,9 +44,13 @@ double insertion_test(int testArr_size)
     {
         int *testArray = generator(testArr_size);
 
+        // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
-        insertionSort(testArray, testArr_size);
-        total += double((std::chrono::high_resolution_clock::now() - start).count() / 1e6);
+        insertionSort(testArray, testArr_size - 1);
+        total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::high_resolution_clock::now() - start)
+                            .count() /
+                        1000000.0);
     }
 
     return total / 20.0;
@@ -59,9 +67,13 @@ double quicksort_test(int testArr_size, bool sorted = false)
         if (sorted)
             std::sort(testArray, testArray + testArr_size);
 
+        // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
         quicksort(testArray, 0, testArr_size - 1);
-        total += double((std::chrono::high_resolution_clock::now() - start).count() / 1e6);
+        total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::high_resolution_clock::now() - start)
+                            .count() /
+                        1000000.0);
     }
 
     return total / 20.0;
@@ -78,9 +90,13 @@ double rand_quicksort_test(int testArr_size, bool sorted = false)
         if (sorted)
             std::sort(testArray, testArray + testArr_size);
 
+        // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
         RandQuicksort(testArray, 0, testArr_size - 1);
-        total += double((std::chrono::high_resolution_clock::now() - start).count() / 1e6);
+        total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::high_resolution_clock::now() - start)
+                            .count() /
+                        1000000.0);
     }
 
     return total / 20.0;
@@ -93,9 +109,13 @@ double mergesort_test(int testArr_size)
     while (tests--)
     {
         int *testArray = generator(testArr_size);
+        // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
         mergeSort(testArray, 0, testArr_size - 1);
-        total += double((std::chrono::high_resolution_clock::now() - start).count() / 1e6);
+        total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::high_resolution_clock::now() - start)
+                            .count() / 
+                        1000000.0);
     }
 
     return total / 20.0;
@@ -122,12 +142,13 @@ int main()
 
     //testing part
 
-    int N[] = {5, 10, 100, 1000, 10000, 100000};
+    int N[] = {5, 10, 100, 1000, 10000};
     std::srand(7);
 
     for (int n : N)
     {
-        std::cout << n
+        std::cout << std::fixed << std::setw(10) << std::setprecision(10)
+                  << n
                   << "," << mergesort_test(n)
                   << "," << quicksort_test(n)
                   << "," << rand_quicksort_test(n)
