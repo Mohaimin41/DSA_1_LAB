@@ -54,7 +54,7 @@ double insertion_test(int testArr_size)
 
         // std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::high_resolution_clock::now();
-        insertionSort(testArray, testArr_size - 1);
+        insertionSort(testArray, testArr_size);
         total += double(std::chrono::duration_cast<std::chrono::nanoseconds>(
                             std::chrono::high_resolution_clock::now() - start)
                             .count() /
